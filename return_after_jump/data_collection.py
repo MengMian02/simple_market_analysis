@@ -8,5 +8,5 @@ def export_data_as_csv(ticker, duration):
     data.to_csv(data_path + '\\' + ticker + '.csv')
 
 
-ticker = 'SPY'
+ticker = 'MSFT'
 export_data_as_csv(ticker, duration)

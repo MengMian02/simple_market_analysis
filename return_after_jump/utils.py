@@ -1,13 +1,16 @@
 from matplotlib import pyplot as plt
 
 
-def identify_pos_jumps(data):
-    data['Jump'] = (data['Return'] > 2 * data['Vol']).astype(int)
+def identify_jumps(data, dir):
+    if dir == 'positive':
+        data['Jump'] = (data['Return'] > 2 * data['Vol']).astype(int)
+    elif dir == 'negative':
+        data['Jump'] = (data['Return'] < -2 * data['Vol']).astype(int)
     return data
 
 
-def get_jump_days(data):
-    jump_days = data[data['Jump'].shift(1) == 1]
+def get_post_jump_days(data, t):
+    jump_days = data[data['Jump'].shift(t) == 1]
     return jump_days
 
 

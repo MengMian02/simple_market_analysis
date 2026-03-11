@@ -1,13 +1,16 @@
 import pandas as pd
 import data_preparation
-from simple_market_analysis.return_after_jump.utils import identify_pos_jumps, get_jump_days, plot_hist, jump_analysis
+from simple_market_analysis.return_after_jump.utils import identify_jumps, get_post_jump_days, plot_hist, jump_analysis
 
-ticker = 'SPY'
+ticker = 'MSFT'
 data_source = 'D:\\Jiheng\\Python Projects\\PythonProject\\simple_market_analysis\\return_after_jump\\data\\' + ticker + '.csv'
+t = 2
 
 raw_data = pd.read_csv(data_source)
 cleaned_data = data_preparation.clean_data(raw_data)
 data_with_vol = data_preparation.prepare_variables(cleaned_data)
-data_with_jump = identify_pos_jumps(data_with_vol)
-jump_days = get_jump_days(data_with_jump)
+data_with_jump = identify_jumps(data_with_vol, 'positive')
+jump_days = get_post_jump_days(data_with_jump, t)
+
+print(jump_analysis(jump_days))
 plot_hist(jump_days['Return'])
