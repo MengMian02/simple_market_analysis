@@ -1,9 +1,6 @@
 import pandas as pd
 
-ticker = 'SPY'
 
-raw_data_path = 'D:\\Jiheng\\Python Projects\\PythonProject\\simple_market_analysis\\return_after_jump\data' + '\\' + ticker + '.csv'
-raw_data = pd.read_csv(raw_data_path)
 vol_window = 256
 vol_min_period = 128
 
