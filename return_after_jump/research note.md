@@ -13,4 +13,4 @@ Start with SP500
 Start with t+1
 Start with price change 
 
-Other dimensions: Market regime, Intraday / Overnight jump, Liquidity, VIX 
+Other dimensions: Market regime, Intraday / Overnight jump, Liquidity, VIX, News 

@@ -1,0 +1,15 @@
+How does the stock market absorb shocks
+Authors: Frank, Sanati
+Year: 2018
+Data Used: S&P500, FT (From 1984 to 2013)
+Methodology:
+1. Identify shocks using standardised data
+2. Determine if the shock contains news by matching to news database
+3. Calc cumulative abnormal return (relative to the market return)
+Key Findings:
+If positive news: Likely to reverse. Mainly contributed by retail investors
+If negative news: Likely to persist
+If no news: Likely to reverse
+Economic Intuition:
+If a fund wants to sell off after bad news, it has to do so gradually
+If the shock origination is non-fundamental, liquidity providers quickly step in, hence reversal

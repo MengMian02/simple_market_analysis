@@ -2,9 +2,9 @@ import pandas as pd
 import data_preparation
 from simple_market_analysis.return_after_jump.utils import identify_jumps, get_post_jump_days, plot_hist, jump_analysis
 
-ticker = 'MSFT'
+ticker = 'FENC'
 data_source = 'D:\\Jiheng\\Python Projects\\PythonProject\\simple_market_analysis\\return_after_jump\\data\\' + ticker + '.csv'
-t = 2
+t = 1
 
 raw_data = pd.read_csv(data_source)
 cleaned_data = data_preparation.clean_data(raw_data)
