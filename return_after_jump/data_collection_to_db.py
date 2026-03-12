@@ -2,11 +2,6 @@ import duckdb
 import pandas as pd
 from pathlib import Path
 import yfinance as yf
-from numpy.linalg.lapack_lite import dgelsd
-
-db_path = Path('data\\data.db')
-spy_holdings_url = "https://www.ssga.com/us/en/intermediary/etfs/library-content/products/fund-data/etfs/us/holdings-daily-us-en-spy.xlsx"
-table_name = 'sp500'
 
 
 def get_db_connection(db_path):
@@ -57,11 +52,13 @@ def create_price_table(con, table_name='prices_daily'):
     CREATE TABLE IF NOT EXISTS {table_name} (
         ticker TEXT,
         date DATE, 
-        open FLOAT,
-        high FLOAT,
-        low FLOAT,
-        close FLOAT,
-        PRIMARY KEY(ticker, date)
+        Close FLOAT,
+        High FLOAT,
+        Low FLOAT,
+        Open FLOAT,
+        Volume FLOAT,
+        size INT,
+        PRIMARY KEY(ticker, date))
         """)
 
 
@@ -88,3 +85,27 @@ def load_price_df_into_db(con, df, table_name, temp_view='temp_prices'):
         SELECT ticker, date, Close, High, Low, Open, Volume, size
         FROM {temp_view}''')
     con.unregister(temp_view)
+
+
+def preview_table_as_df(con, table_name, limit=20):
+    df = con.execute(f'''
+        SELECT * FROM {table_name}
+        LIMIT {limit}''').df()
+    return df
+
+
+db_path = Path('data\\data.db')
+spy_holdings_url = "https://www.ssga.com/us/en/intermediary/etfs/library-content/products/fund-data/etfs/us/holdings-daily-us-en-spy.xlsx"
+ticker_table = 'sp500'
+price_table = 'sp_prices_daily'
+
+
+if "__name__" == '__main__':
+    con = get_db_connection(db_path)
+    create_price_table(con, 'sp_prices_daily')
+    tickers = get_tickers(con, ticker_table)
+    for i, ticker in enumerate(tickers, start=1):
+        price_history = get_price_history(ticker, 1, '20y', interval='1d')
+        load_price_df_into_db(con, price_history, price_table)
+        print(f'{i} / {len(tickers)} Loaded')
+    con.close()
