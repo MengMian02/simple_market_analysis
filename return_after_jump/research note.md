@@ -13,4 +13,11 @@ Start with SP500
 Start with t+1
 Start with price change 
 
-Other dimensions: Market regime, Intraday / Overnight jump, Liquidity, VIX, News 
+Other dimensions: Market regime, Intraday / Overnight jump, Liquidity, VIX, News
+
+
+Why do I want to consider large and small cap
+- Since information is an influencer according to the search, then difference in information flow should affect price
+movement
+- Since market participant is an influencer according to the research, then difference in market participation 
+composition should also affect the price movement
