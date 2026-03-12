@@ -96,16 +96,44 @@ def preview_table_as_df(con, table_name, limit=20):
 
 db_path = Path('data\\data.db')
 spy_holdings_url = "https://www.ssga.com/us/en/intermediary/etfs/library-content/products/fund-data/etfs/us/holdings-daily-us-en-spy.xlsx"
-ticker_table = 'sp500'
-price_table = 'sp_prices_daily'
+ticker_table = 'micro'
+# price_table = 'sp_prices_daily'
+price_table = 'micro_prices_daily'
 
 
-if "__name__" == '__main__':
+if __name__ == '__main__':
     con = get_db_connection(db_path)
-    create_price_table(con, 'sp_prices_daily')
+    create_price_table(con, price_table)
     tickers = get_tickers(con, ticker_table)
     for i, ticker in enumerate(tickers, start=1):
         price_history = get_price_history(ticker, 1, '20y', interval='1d')
         load_price_df_into_db(con, price_history, price_table)
         print(f'{i} / {len(tickers)} Loaded')
     con.close()
+
+
+
+
+
+
+
+
+
+def unused_load_micro_firms_to_db():
+    ticker_table = 'micro'
+    file_path = 'data\\micro_cap_etf.xlsx'
+    sheet_name = 'Holdings'
+    df = pd.read_excel(file_path, sheet_name=sheet_name, header=7, engine='openpyxl')
+    ticker_col = 'Ticker'
+    name_col = 'Name'
+    data = df.loc[:499, [ticker_col, name_col]].copy()
+    data = data.rename(columns={ticker_col: 'ticker', name_col: 'company'})
+
+    con = get_db_connection(db_path)
+    create_ticker_table(con, ticker_table)
+    load_firm_df_into_db(con, data, ticker_table)
+
+
+
+
+
