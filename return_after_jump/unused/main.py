@@ -6,7 +6,7 @@ from simple_market_analysis.return_after_jump.utils import (
 
 
 t = 1
-db_path = Path('data\\data.db')
+db_path = Path('../data/data.db')
 jump_dir = 'positive'
 param_of_interest = 'perc_positive'
 
