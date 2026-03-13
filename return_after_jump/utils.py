@@ -1,3 +1,4 @@
+import duckdb
 from matplotlib import pyplot as plt
 
 
@@ -25,7 +26,7 @@ def jump_analysis(data):
         'median': median,
         'max_return': max_return,
         'min_return': min_return,
-        'perc_pos': perc_pos,
+        'perc_positive': perc_pos,
     }
     return summary
 
@@ -33,3 +34,22 @@ def jump_analysis(data):
 def plot_hist(data, bin_number=10):
     plt.hist(data, bins=bin_number)
     plt.show()
+
+
+def get_db_connection(db_path):
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    return duckdb.connect(str(db_path))
+
+
+def get_tickers(con, ticker_table):
+    rows = con.execute(f"""
+        SELECT ticker FROM {ticker_table}
+        ORDER BY ticker""").fetchall()
+    return [row[0] for row in rows]
+
+
+def get_price_from_db(ticker, con, price_table):
+    data = con.execute(f"""
+        SELECT * FROM {price_table}
+        WHERE ticker = '{ticker}'""").df()
+    return data

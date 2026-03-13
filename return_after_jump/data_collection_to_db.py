@@ -1,12 +1,8 @@
-import duckdb
 import pandas as pd
 from pathlib import Path
 import yfinance as yf
 
-
-def get_db_connection(db_path):
-    db_path.parent.mkdir(parents=True, exist_ok=True)
-    return duckdb.connect(str(db_path))
+from simple_market_analysis.return_after_jump.utils import get_db_connection, get_tickers
 
 
 def create_ticker_table(con, table_name):
@@ -60,13 +56,6 @@ def create_price_table(con, table_name='prices_daily'):
         size INT,
         PRIMARY KEY(ticker, date))
         """)
-
-
-def get_tickers(con, ticker_table):
-    rows = con.execute(f"""
-        SELECT ticker FROM {ticker_table}
-        ORDER BY ticker""").fetchall()
-    return [row[0] for row in rows]
 
 
 def get_price_history(ticker, size, period, interval='1d'):
