@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy import stats
 
-from simple_market_analysis.return_after_jump import data_preparation
+import data_preparation
 
 
 def identify_jumps(data, dir):

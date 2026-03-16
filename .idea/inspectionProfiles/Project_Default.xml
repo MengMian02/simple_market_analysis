@@ -1,0 +1,30 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="arch" />
+          <option value="duckdb" />
+          <option value="joblib" />
+          <option value="loguru" />
+          <option value="matplotlib" />
+          <option value="numpy" />
+          <option value="openpyxl" />
+          <option value="pandas" />
+          <option value="pandas_ta" />
+          <option value="plotly" />
+          <option value="pyecharts" />
+          <option value="python_dateutil" />
+          <option value="quantstats" />
+          <option value="scikit_learn" />
+          <option value="scipy" />
+          <option value="statsmodels" />
+          <option value="systems" />
+          <option value="ta" />
+          <option value="tqsdk" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
